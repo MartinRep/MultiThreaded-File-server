@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<client-config username="gmit-sw2016">
+ 	<server-host>192.168.0.3</server-host>
+ 	<server-port>7777</server-port>
+ 	<download-dir>\Temp\</download-dir>
+</client-config>
