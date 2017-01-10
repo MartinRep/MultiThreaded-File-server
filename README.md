@@ -33,7 +33,7 @@ Main menu let you connect to Server, which must be done prior to any other opera
 Download file option will allow you to download specific file. Manually type in full file name and press enter. if succesfull the file will be downloaded and saved to predefined folder.
 
 
-## Under hood
+## Under the hood
 
 File server runs as multiThread, that means, that main method only triggers 2 runnebles (Logger and listener) and waits for ENTER key to trigger shutting down of services.
 
