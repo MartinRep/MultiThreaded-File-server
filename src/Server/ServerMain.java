@@ -7,7 +7,12 @@ import java.util.concurrent.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
+/**
+ * Class Server mounts File Server on port specified in API args if config.xml is not found it will start service on default port 7777 and as localHost.    
+ * @author Martin Repicky
+ * @exception IOException
+ * 
+ */
 public class ServerMain
 {
 	private static ServerSocket serverSocket;
@@ -20,7 +25,16 @@ public class ServerMain
 	private static String path=".";
 	static List<String> dirFiles = new ArrayList<String>();
 	
-	public static void main(String[] args) throws IOException {
+	/**
+	 * Main method runs 2 separate Threads for Logging and Thread generator that generate thread for each client connection made. </br> 
+	 * Takes 2 arguments Socket port and download folder. </br> Example: <b> {@code  java -cp oop.jar Server.ServerMain 7777 /download/} </b> 
+	 * Where 7777 is socketport and /download/ is path where received files will be saved on local drive 
+	 * @param args
+	 * @return int  ( 0 = no Errors )
+	 * @throws IOException
+	 */
+	
+	public static int main(String[] args) throws IOException {
 		
 		//Sets defaults if no parameters given		
 		int port=8781;
@@ -41,7 +55,7 @@ public class ServerMain
 	            System.out.println("Server started.");
 	        } catch (Exception e) {
 	            System.err.println("Error! Port already in use.");
-	            System.exit(1);
+	            return 1;
 	        }
 		System.err.println("PRESS ENTER ANYTIME TO SHUTDOWN SERVER");
 		 //Starts incoming connection listener
@@ -90,8 +104,12 @@ public class ServerMain
 			e.printStackTrace();
 		}
         System.out.println("Thank you for using Fl Server © 2017 by Martin Repicky.");
-		System.exit(0);
+		return 0;
 	    }
+	
+	/**
+	 *  Thread Method to listen for new incoming connection to Server and created and runs separate Thread for each connection. Runs in infinite loop and as separate Thread.
+	 */
 	
 	public static void listener()
 	{
@@ -111,6 +129,11 @@ public class ServerMain
 	        }
 		servLog.add("[Warning] New connection Service down.");
 	}
+	
+	/**
+	 * Thread Method that collect Server data logs from Blocking Queue populated by individual connection threads and logs them with java logger class.
+	 * @throws InterruptedException
+	 */
 	
 	public static void logger() throws InterruptedException
 	{

@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Runnable Class to handle individual Client connection and requests. Able to List files from local directory and send individual files to the client  
+ * @author Martin Repicky
+ *
+ */
+
 public class ClientConnection implements Runnable{
 	private Socket clientSocket;
     private BufferedReader inComing = null;
@@ -22,6 +28,11 @@ public class ClientConnection implements Runnable{
         this.path = path;
     }
 
+    /**
+     * Runnable Method (main for Thread) to deal with clients requests. 3 commands "dir" , "getFile" , "#QuIt#" 
+     * 
+     */
+    
     @Override
     public void run() {
     	String clientSelection, outGoingFileName="";
@@ -60,6 +71,10 @@ public class ClientConnection implements Runnable{
         }
     }
     
+    /**
+     * Method to send the list of local files to client. List is populated by method ls().
+     */
+    
     public void sendList()
     {
     	servLog.add(clientIp+" requested list of files");
@@ -72,6 +87,11 @@ public class ClientConnection implements Runnable{
 		}
     }
     
+    /**
+     * Method to populate ArrayList with file names from local directory
+     * @return ArrayList
+     */
+    
     public ArrayList<String> ls()
 	{
     	ArrayList<String> dirFiles = new ArrayList<String>();
@@ -79,6 +99,12 @@ public class ClientConnection implements Runnable{
 		for (File file : files) if (file.isFile()) dirFiles.add(file.getName());
 		return dirFiles;
 	}
+    
+    /**
+     * Method to send file to client 
+     * @param fileName String
+     * 
+     */
     
     public void sendFile(String fileName) {
         try {
@@ -104,6 +130,10 @@ public class ClientConnection implements Runnable{
             cMessage.println("#NoSuChAfIlE#");
         } 
     }
+    
+    /**
+     * Static Method which triggers all running Clients Thread to orderly finish. 
+     */
     
     public static void stopSession()
     {

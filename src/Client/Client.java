@@ -6,6 +6,12 @@ import java.util.Scanner;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 
+/**
+ * Client Class communication with Server class.
+ * @exception IOException
+ * @author Martin Repicky
+ *
+ */
 
 public class Client {
 
@@ -16,7 +22,10 @@ public class Client {
     private static String hostAdress = "127.0.0.1";
     private static int hostSocket = 7777;
 
-    //Setting up Server parsing config.xml file
+    /**
+     * Setting up Server configuration by parsing "config.xml" file. XML tags server-host for    
+     * 
+     */
     public static void init()
     {
     	try{
@@ -45,6 +54,12 @@ public class Client {
     		System.out.println("Server set to "+hostAdress+":"+hostSocket);
     	}
     }
+    
+    /**
+     * Main Method   
+     * @param args
+     * @throws IOException
+     */
     
     public static void main(String[] args) throws IOException {
     	int choice;
@@ -89,6 +104,11 @@ public class Client {
         }
     }
 
+    /**
+     * Initialize the socket connection with Server 
+     * @return boolean for successful connection 
+     */
+    
     public static boolean connect()
     {
     	try {
@@ -101,6 +121,10 @@ public class Client {
             return false;
         }
     }
+    
+    /**
+     * Protocol method to request list of files from server nad display the results in console.
+     */
     
     public static void listFiles() 
     {
@@ -129,6 +153,10 @@ public class Client {
     		ex.printStackTrace();
     	}
     }
+    
+    /**
+     * Protocol Method to Request specific file from Server. This Method receives data stream from Server and save it as file. Filename is requested via console.
+     */
     
     public static void receiveFile() {
         String cMessage;
